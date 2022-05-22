@@ -1,0 +1,17 @@
+docker build -t test:pandas  .
+
+
+docker run -it -e POSTGRES_USER="root" -e POSTGRES_PASSWORD="root" -e POSTGRES_DB="ny_taxi" -v C:/Projects/data-zoomcamp-de/week_1/data:/var/lib/postgres/data --network -p 5432:5432 postgres:13
+
+
+
+# networks
+
+docker network create pg_network  
+
+
+
+docker run -it --name postgres_test -e POSTGRES_USER="root" -e POSTGRES_PASSWORD="root" -e POSTGRES_DB="ny_taxi" -v c:/Projects/data-zoomcamp-de/week_1/data:/var/lib/postgres/data --network=pg_network -p 5432:5432 postgres:13
+
+
+python .\pipeline.py --host='localhost' --username='root' --password='root' --database='ny_taxi' --url="https://s3.amazonaws.com/nyc-tlc/trip+data/green_tripdata_2021-01.parquet" --table=''
